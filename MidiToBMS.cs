@@ -87,6 +87,7 @@ namespace JaiMaker
                 var MidTrack = wtf.Tracks[TrackID];
                 TrackAddresses[TrackID] = (int)JaiWriter.BaseStream.Position; // Store track position
 
+
                 JaiWriter.Write((byte)0xA4);
                 JaiWriter.Write((byte)0x20);
                 JaiWriter.Write((byte)Root.instrumentBanks[TrackID]);
@@ -94,6 +95,10 @@ namespace JaiMaker
                 JaiWriter.Write((byte)0xA4);
                 JaiWriter.Write((byte)0x21);
                 JaiWriter.Write((byte)Root.programs[TrackID]);
+
+                //Write SyncCPU 200 at the very beginning of the song on every track
+                JaiWriter.Write((byte)0xE7);
+                JaiWriter.Write((short)200);
 
                 writePrint(JaiWriter, @", T" + TrackID);
 
